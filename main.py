@@ -24,7 +24,7 @@ with console_container:
     if not st.session_state.console_output:
         st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be used as an assistant—don't let it do everything for you.")
         dis_text = "Type 'I hereby will abide by these rules' if you agree to these rules."
-        with st.form(key="input_form", clear_on_submit=True):  
+        with st.form(key="input_dis", clear_on_submit=True):  
             user_input = st.text_input(dis_text, key="user_input")    
             submit_button = st.form_submit_button("Submit", type="primary")
         while True:
@@ -35,7 +35,7 @@ with console_container:
                 break
             else:
                 type_again_text = ("Please type the statement 'I hereby will abide by these rules'")
-                with st.form(key="input_form", clear_on_submit=True):  
+                with st.form(key="input_dis_retry", clear_on_submit=True):  
                     user_input = st.text_input(dis_text, key="user_input")    
                     submit_button = st.form_submit_button("Submit", type="primary") 
                 next
