@@ -20,28 +20,28 @@ st.title("TemuGPT")
 
 
 # Console output area
+if not st.session_state.disclaimer_finish:
+    st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be used as an assistant—don't let it do everything for you.")
+    dis_text = "Type 'I hereby will abide by these rules' if you agree to these rules."
+    with st.form(key="input_dis", clear_on_submit=True):  
+        user_input = st.text_input(dis_text, key="user_input_dis")    
+        submit_button = st.form_submit_button("Submit", type="primary")
+    if submit_button and user_input:
+        if user_input == "I hereby will abide by these rules":
+            st.text("Accepted! Starting TemuGPT...")
+            time.sleep(1)
+            st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
+            st.session_state.discalimer_finish = True
+            st.rerun()
+        else:
+            st.text("Please type the statement 'I hereby will abide by these rules'")
+        
+
+else:
 console_container = st.container()
 with console_container:
-    if not st.session_state.console_output:
-        if not st.session_state.disclaimer_finish:
-            st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be used as an assistant—don't let it do everything for you.")
-            dis_text = "Type 'I hereby will abide by these rules' if you agree to these rules."
-            with st.form(key="input_dis", clear_on_submit=True):  
-                user_input = st.text_input(dis_text, key="user_input_dis")    
-                submit_button = st.form_submit_button("Submit", type="primary")
-            if user_input == "I hereby will abide by these rules":
-                st.text("Accepted! Starting TemuGPT...")
-                time.sleep(1)
-                st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
-                st.session_state.discalimer_finish = True
-                st.rerun()
-            else:
-                st.text("Please type the statement 'I hereby will abide by these rules'")
-                
-
-    else:
-        for line in st.session_state.console_output:
-            st.text(line)
+for line in st.session_state.console_output:
+    st.text(line)
 
 # Input area
 if len(st.session_state.chats) != 0:
