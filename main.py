@@ -77,7 +77,7 @@ if submit_button and user_input:
                     system_instruction=st.session_state.system_instruction_change
                 )
                 st.session_state.console_output.append("\nLoading... (Might take some time)")
-                tim.sleep(.5)
+                time.sleep(.5)
                 response = model.generate_content(user_input)
                 st.session_state.console_output.append(f"\nAnswer: \n{response.text}\n")
             except Exception as e:
