@@ -25,12 +25,12 @@ if not st.session_state.disclaimer_finish:
     st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be an assistant—don't try to break school policy in any way.")
     dis_text = "Type 'I solemnly swear that I will abide by these rules' if you agree to these rules."
     
-    with st.form(key="input_dis", clear_on_submit=True):  
-        user_input_dis = st.text_input(dis_text, key="user_input_dis")    
-        submit_button_dis = st.form_submit_button("Submit", type="primary")
+    with st.form(key="input_form", clear_on_submit=True):  
+        user_input = st.text_input(dis_text, key="user_input")    
+        submit_button = st.form_submit_button("Submit", type="primary")
     
-    if submit_button_dis and user_input_dis:
-        if user_input_dis == "I solemnly swear that I will abide by these rules":
+    if submit_button and user_input:
+        if user_input == "I solemnly swear that I will abide by these rules":
             st.session_state.disclaimer_finish = True
             st.session_state.console_output.append("Accepted! Starting TemuGPT...")
             st.session_state.console_output.append("Welcome to TemuGPT!")
@@ -48,17 +48,11 @@ else:
         for line in st.session_state.console_output:
             st.text(line)
     
-    st.markdown("---")
-    
     # Main input form - ONLY SHOWS HERE, AFTER DISCLAIMER
     if len(st.session_state.chats) != 0:
         prompt_text = "What would you like to do? (Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
     else:
         prompt_text = "Type here:"
-    
-    with st.form(key="input_form", clear_on_submit=True):  
-        user_input = st.text_input(prompt_text, key="user_input")    
-        submit_button = st.form_submit_button("Submit", type="primary")
     
     # Process input
     if submit_button and user_input:
