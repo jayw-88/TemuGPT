@@ -108,20 +108,19 @@ else:
             if len(st.session_state.chats) == 0:
                 st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
                 st.session_state.chats.append(user_input)
-                time.sleep(.5)
 
-            try:
-                chat_completion = client.chat.completions.create(
-                            messages=[
-                                {"role": "system", "content": "You are a helpful assistant that is thorough and detailed and gets to the point."},
-                                {"role": "user", "content": user_input}
-                            ],
-                            model="llama-3.1-8b-instant"
-                        )
+
                 
                 st.session_state.console_output.append("\nLoading... (Might take some time)")
-                response = chat_completion.choices[0].message.content
                 time.sleep(.5)
+                try:
+                    chat_completion = client.chat.completions.create(
+                                messages=[
+                                    {"role": "user", "content": user_input}
+                                ],
+                                model="llama-3.1-8b-instant"
+                            )
+                response = chat_completion.choices[0].message.content
                 st.session_state.console_output.append(f"\nAnswer: \n{response}\n")
             except Exception as e:
                 st.session_state.console_output.append(f"\nError: {str(e)}\n")
