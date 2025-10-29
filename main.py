@@ -17,71 +17,92 @@ if 'console_output' not in st.session_state:
 
 # Title
 st.title("TemuGPT")
+st.session_state.disclaimer_finish = False
 
-# DISCLAIMER SCREEN
-st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be an assistant—don't try to break school policy in any way.")
-time.sleep(5)
-# Console output
-console_container = st.container()
-with console_container:
-    for line in st.session_state.console_output:
-        st.text(line)
 
-# Main input form - ONLY SHOWS HERE, AFTER DISCLAIMER
+# Console output area
+if not st.session_state.disclaimer_finish:
+    st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be used as an assistant—don't let it do everything for you.")
+    dis_text = "Type 'I hereby will abide by these rules' if you agree to these rules."
+    st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be an assistant—don't try to break school policy in any way.")
+    dis_text = "Type 'I solemnly swear that I will abide by these rules' if you agree to these rules."
+    with st.form(key="input_dis", clear_on_submit=True):  
+        user_input = st.text_input(dis_text, key="user_input_dis")    
+        submit_button = st.form_submit_button("Submit", type="primary")
+    if submit_button and user_input:
+        user_input_dis = st.text_input(dis_text, key="user_input_dis")    
+        submit_button_dis = st.form_submit_button("Submit", type="primary")
+    if submit_button_dis and user_input_dis:
+        if user_input == "I hereby will abide by these rules":
+            st.text("Accepted! Starting TemuGPT...")
+            time.sleep(1)
+            st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
+            st.session_state.discalimer_finish = True
+            st.rerun()
+        else:
+            st.text("Please type the statement 'I hereby will abide by these rules'")
+
+
+else:
+    console_container = st.container()
+    with console_container:
+        for line in st.session_state.console_output:
+            st.text(line)
+
+# Input area
 if len(st.session_state.chats) != 0:
-    prompt_text = "What would you like to do? (Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
+    prompt_text = "What would you like to do? \n(Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
 else:
     prompt_text = "Type here:"
+with st.form(key="input_form", clear_on_submit=True):  
+    user_input = st.text_input(prompt_text, key="user_input")    
+    submit_button = st.form_submit_button("Submit", type="primary")
 
-# Main input form
-with st.form(key="main_form", clear_on_submit=True):
-    main_input = st.text_input(prompt_text, key="main_input")
-    main_submit = st.form_submit_button("Submit", type="primary")
+if submit_button and user_input:
+    if user_input:
+        st.session_state.console_output.append(f"\n> {user_input}")
 
-# Process main input
-if main_submit and main_input:
-    st.session_state.console_output.append(f"\n> {main_input}")
-    
-    # New Chat
-    if main_input.lower() == "n":
-        st.session_state.console_output.append("\nWhat would you like to name this chat?")
-        
-    # Delete Chat
-    elif main_input.lower() == "x":
-        if len(st.session_state.chats) != 0:
-            st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
-            for i in range(len(st.session_state.chats)):
-                st.session_state.console_output.append(str(i) + ". " + st.session_state.chats[i])
-            st.session_state.console_output.append("\nInput the number of the chat.")
+        # New Chat
+        if user_input == "N" or user_input == "n":
+            time.sleep(.5)
+            st.session_state.console_output.append("\nWhat would you like to name this chat?")
+
+        # Delete Chat
+        elif user_input == "X" or user_input == "x":
+            time.sleep(.5)
+            if len(st.session_state.chats) != 0:
+                st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
+                for i in range(len(st.session_state.chats)):
+                    st.session_state.console_output.append(str(i) + ". " + st.session_state.chats[i])
+                time.sleep(.5)
+                st.session_state.console_output.append("\nInput the number of the chat.")
+            else:
+                time.sleep(.5)
+                st.session_state.console_output.append("\nYou have no chats to delete!")
+
+        # Settings
+        elif user_input == "S" or user_input == "s":
+            time.sleep(.5)
+            st.session_state.console_output.append("\nWelcome to Settings!")
+            st.session_state.console_output.append("Here you can give TemuGPT certain instructions for his responses. (e.g. Be more concise, be more thorough)")
+            st.session_state.console_output.append("Input your settings or press 'X' to exit.")
+
+        # Regular query
         else:
-            st.session_state.console_output.append("\nYou have no chats to delete!")
-    
-    # Settings
-    elif main_input.lower() == "s":
-        st.session_state.console_output.append("\nWelcome to Settings!")
-        st.session_state.console_output.append("Here you can give TemuGPT certain instructions for his responses. (e.g. Be more concise, be more thorough)")
-        st.session_state.console_output.append("Input your settings or press 'X' to exit.")
-    
-    # Quit
-    elif main_input.lower() == "q":
-        st.session_state.console_output.append("\nThank you for using TemuGPT! Goodbye!")
-    
-    # Regular query
-    else:
-        if len(st.session_state.chats) == 0:
-            st.session_state.console_output.append(f"\nNew chat automatically created! — {main_input}")
-            st.session_state.chats.append(main_input)
-        
-        st.session_state.console_output.append("\nLoading... (Might take some time)")
-        
-        try:
-            model = genai.GenerativeModel(
-                model_name='gemini-2.5-flash-lite',
-                system_instruction=st.session_state.system_instruction_change
-            )
-            response = model.generate_content(main_input)
-            st.session_state.console_output.append(f"\nAnswer: \n{response.text}\n")
-        except Exception as e:
-            st.session_state.console_output.append(f"\nError: {str(e)}\n")
-    
+            if len(st.session_state.chats) == 0:
+                st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
+                st.session_state.chats.append(user_input)
+
+            try:
+                model = genai.GenerativeModel(
+                    model_name='gemini-2.5-flash-lite',
+                    system_instruction=st.session_state.system_instruction_change
+                )
+                st.session_state.console_output.append("\nLoading... (Might take some time)")
+                time.sleep(.5)
+                response = model.generate_content(user_input)
+                st.session_state.console_output.append(f"\nAnswer: \n{response.text}\n")
+            except Exception as e:
+                st.session_state.console_output.append(f"\nError: {str(e)}\n")
+
     st.rerun()
