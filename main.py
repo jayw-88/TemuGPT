@@ -38,13 +38,10 @@ if not st.session_state.disclaimer_finish:
             else:
                 prompt_text = "Type here:"
             
-            with st.form(key="input_form", clear_on_submit=True):  
-                print("worked!")
-                user_input = st.text_input(prompt_text, key="user_input")    
-                submit_button = st.form_submit_button("Submit", type="primary")
-            
         else:
             st.text("Please type the statement 'I hereby will abide by these rules'")
+    st.rerun()
+            
         
 
 else:
@@ -52,6 +49,12 @@ else:
     with console_container:
         for line in st.session_state.console_output:
             st.text(line)
+
+            
+with st.form(key="input_form", clear_on_submit=True):  
+    print("worked!")
+    user_input = st.text_input(prompt_text, key="user_input")    
+    submit_button = st.form_submit_button("Submit", type="primary")
 
 if submit_button and user_input:
     if user_input:
