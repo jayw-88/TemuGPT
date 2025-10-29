@@ -1,34 +1,6 @@
 import streamlit as st
+import google.generativeai as genai
 import time
-
-try:
-    import google.generativeai as genai
-    HAS_GENAI = True
-except ImportError:
-    HAS_GENAI = False
-    st.error("⚠️ Required package not installed")
-    st.info("""
-    To use TemuGPT, you need to install the required package:
-    
-    **For local development:**
-    ```bash
-    pip install google-generativeai
-    ```
-    
-    **For Streamlit Cloud:**
-    Create a `requirements.txt` file with:
-    ```
-    streamlit
-    google-generativeai
-    ```
-    """)
-    st.stop()
-
-# Only run the main app if the package is available
-if HAS_GENAI:
-    # API
-    genai.configure(api_key="AIzaSyC7LgIAL1HSccNkkFNTQi0VgjFH2VWQjF8")
-    
 
 # API
 genai.configure(api_key="AIzaSyC7LgIAL1HSccNkkFNTQi0VgjFH2VWQjF8")
