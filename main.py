@@ -29,12 +29,13 @@ with console_container:
             submit_button = st.form_submit_button("Submit", type="primary")
         while True:
             if user_input == "I hereby will abide by these rules":
-                print("Accepted! Starting TemuGPT...")
+                st.text("Accepted! Starting TemuGPT...")
                 time.sleep(1)
                 st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
                 break
             else:
-                print("Please type the statement 'I hereby will abide by these rules'")
+                type_again_text = ("Please type the statement 'I hereby will abide by these rules'")
+                user_input = st.text_input(type_again_text, key="user_input")    
                 next
 
     else:
