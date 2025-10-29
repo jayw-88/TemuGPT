@@ -38,10 +38,10 @@ if not st.session_state.disclaimer_finish:
         
 
 else:
-console_container = st.container()
-with console_container:
-for line in st.session_state.console_output:
-    st.text(line)
+    console_container = st.container()
+    with console_container:
+    for line in st.session_state.console_output:
+        st.text(line)
 
 # Input area
 if len(st.session_state.chats) != 0:
