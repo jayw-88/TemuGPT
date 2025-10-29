@@ -1,13 +1,12 @@
 import streamlit as st
 import google.generativeai as genai
 
-# Configure API
+# API
 genai.configure(api_key="AIzaSyDAm1jtwFCjZhkiDtG4SmwQXwikfdDQLpE")
 
-# Page config
-st.set_page_config(page_title="TemuGPT", page_icon="🤖")
+# page config
+st.set_page_config(page_title="TemuGPT")
 
-# Initialize session state
 if 'chats' not in st.session_state:
     st.session_state.chats = []
 if 'system_instruction_change' not in st.session_state:
@@ -16,15 +15,15 @@ if 'console_output' not in st.session_state:
     st.session_state.console_output = []
 
 # Title
-st.title("🤖 TemuGPT")
+st.title("TemuGPT")
 st.markdown("---")
 
 # Console output area
-st.subheader("Console Output:")
+st.subheader("")
 console_container = st.container()
 with console_container:
     if not st.session_state.console_output:
-        st.text("-----------------------Welcome to TemuGPT! Press 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. How may TemuGPT help you today?-----------------------")
+        st.text("Welcome to TemuGPT! Press 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. How may TemuGPT help you today?")
     else:
         for line in st.session_state.console_output:
             st.text(line)
@@ -84,7 +83,3 @@ if st.button("Enter", type="primary"):
         
         st.rerun()
 
-# Clear console button
-if st.button("Clear Console"):
-    st.session_state.console_output = []
-    st.rerun()
