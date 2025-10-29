@@ -54,7 +54,7 @@ else:
 # Input area
 
 
-if submit_button and user_input:
+if submit_button and user_input: #type: ignore
     if user_input:
         st.session_state.console_output.append(f"\n> {user_input}")
         
