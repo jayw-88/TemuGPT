@@ -16,6 +16,8 @@ if 'console_output' not in st.session_state:
     st.session_state.console_output = []
 if 'disclaimer_finish' not in st.session_state:
     st.session_state.disclaimer_finish = False
+if 'disclaimer_v' not in st.session_state:
+    st.session_state.disclaimer_v = False
 
 # Title
 st.title("TemuGPT")
@@ -36,6 +38,7 @@ if not st.session_state.disclaimer_finish:
             st.session_state.console_output.append("Welcome to TemuGPT!")
             st.session_state.console_output.append("Press 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit.")
             st.session_state.console_output.append("\nHow may TemuGPT help you today?")
+            st.session_state.disclaimer_v = True
             st.rerun()
         else:
             st.error("Please type the exact statement!")
@@ -52,10 +55,10 @@ if len(st.session_state.chats) != 0:
 else:
     prompt_text = "Type here:"
     
-
-with st.form(key="input_form", clear_on_submit=True):  
-    user_input = st.text_input(prompt_text, key="user_input")    
-    submit_button = st.form_submit_button("Submit", type="primary")
+if st.session_state.disclaimer_v:
+    with st.form(key="input_form", clear_on_submit=True):  
+        user_input = st.text_input(prompt_text, key="user_input")    
+        submit_button = st.form_submit_button("Submit", type="primary")
 
 if submit_button and user_input:
     if user_input:
