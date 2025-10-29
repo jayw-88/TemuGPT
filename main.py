@@ -115,7 +115,7 @@ else:
                 st.session_state.console_output.append("\nLoading... (Might take some time)")
                 response = chat_completion.choices[0].message.content
                 time.sleep(.5)
-                st.session_state.console_output.append(f"\nAnswer: \n{response.text}\n")
+                st.session_state.console_output.append(f"\nAnswer: \n{response}\n")
             except Exception as e:
                 st.session_state.console_output.append(f"\nError: {str(e)}\n")
 
