@@ -22,9 +22,18 @@ st.title("TemuGPT")
 console_container = st.container()
 with console_container:
     if not st.session_state.console_output:
-        st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be used as an assistant—don't let it do everything for you.")
-        time.sleep(5)
-        st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
+        st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be used as an assistant—don't let it do everything for you. Type 'I hereby will abide by these rules' if you agree to these rules.")
+        user_input = st.text_input(prompt_text, key="user_input")  
+        while True:
+            if user_input == "I hereby will abide by these rules":
+                print("Accepted! Starting TemuGPT...")
+                time.sleep(1)
+                st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
+                break
+            else:
+                print("Please type the statement 'I hereby will abide by these rules'")
+                next
+
     else:
         for line in st.session_state.console_output:
             st.text(line)
