@@ -34,17 +34,15 @@ if not st.session_state.disclaimer_finish:
         if user_input_dis == "I solemnly swear that I will abide by these rules":  # Fixed variable name
             st.session_state.disclaimer_finish = True  # Fixed typo
             st.session_state.console_output.append("Accepted! Starting TemuGPT...")
-            time.sleep(1)
+            time.sleep(.5)
             st.session_state.console_output = []
             st.session_state.console_output.append("Welcome to TemuGPT!")
             st.session_state.console_output.append("Press 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit.")
             time.sleep(.5)
             st.session_state.console_output.append("\nHow may TemuGPT help you today?")
             st.rerun()
-            time.sleep(.5)
         else:
             st.error("Please type the exact statement: 'I solemnly swear that I will abide by these rules'")
-            time.sleep(.5)
 
 # MAIN SCREEN (only shows after disclaimer accepted)
 else:
@@ -108,12 +106,8 @@ else:
             if len(st.session_state.chats) == 0:
                 st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
                 st.session_state.chats.append(user_input)
-
-
-                
                 st.session_state.console_output.append("\nLoading... (Might take some time)")
                 time.sleep(.5)
-            try:
                 chat_completion = client.chat.completions.create(
                             messages=[
                                 {"role": "user", "content": user_input}
@@ -122,7 +116,5 @@ else:
                         )
                 response = chat_completion.choices[0].message.content
                 st.session_state.console_output.append(f"\nAnswer: \n{response}\n")
-            except Exception as e:
-                st.session_state.console_output.append(f"\nError: {str(e)}\n")
 
         st.rerun()
