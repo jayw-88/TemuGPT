@@ -26,13 +26,13 @@ if not st.session_state.disclaimer_finish:
     with st.form(key="input_dis", clear_on_submit=True):  
         user_input_dis = st.text_input(dis_text, key="user_input_dis")    
         submit_button_dis = st.form_submit_button("Submit", type="primary")
-        if len(st.session_state.chats) != 0:
-            prompt_text = "What would you like to do? \n(Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
-        else:
-            prompt_text = "Type here:"
-        with st.form(key="input_form", clear_on_submit=True):  
-            user_input = st.text_input(prompt_text, key="user_input")    
-            submit_button = st.form_submit_button("Submit", type="primary")
+    if len(st.session_state.chats) != 0:
+        prompt_text = "What would you like to do? \n(Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
+    else:
+        prompt_text = "Type here:"
+    with st.form(key="input_form", clear_on_submit=True):  
+        user_input = st.text_input(prompt_text, key="user_input")    
+        submit_button = st.form_submit_button("Submit", type="primary")
     if submit_button_dis and user_input_dis:
         if user_input == "I hereby will abide by these rules":
             st.text("Accepted! Starting TemuGPT...")
