@@ -32,10 +32,12 @@ if not st.session_state.disclaimer_finish:
     if submit_button and user_input:
         if user_input == "I solemnly swear that I will abide by these rules":
             st.session_state.disclaimer_finish = True
-            st.session_state.console_output.append("Accepted! Starting TemuGPT...")
-            st.session_state.console_output.append("Welcome to TemuGPT!")
-            st.session_state.console_output.append("Press 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit.")
-            st.session_state.console_output.append("\nHow may TemuGPT help you today?")
+            st.session_state.console_output = [
+                "Accepted! Starting TemuGPT...",
+                "Welcome to TemuGPT!",
+                "Press 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit.",
+                "\nHow may TemuGPT help you today?"
+            ]
             st.rerun()
         else:
             st.error("Please type the exact statement!")
@@ -56,19 +58,19 @@ else:
     
     # Main input form
     with st.form(key="main_form", clear_on_submit=True):
-        user_input = st.text_input(prompt_text, key="main_input")
-        submit_button = st.form_submit_button("Submit", type="primary")
+        main_input = st.text_input(prompt_text, key="main_input")
+        main_submit = st.form_submit_button("Submit", type="primary")
     
-    # Process input
-    if submit_button and user_input:
-        st.session_state.console_output.append(f"\n> {user_input}")
+    # Process main input
+    if main_submit and main_input:
+        st.session_state.console_output.append(f"\n> {main_input}")
         
         # New Chat
-        if user_input == "N" or user_input == "n":
+        if main_input.lower() == "n":
             st.session_state.console_output.append("\nWhat would you like to name this chat?")
             
         # Delete Chat
-        elif user_input == "X" or user_input == "x":
+        elif main_input.lower() == "x":
             if len(st.session_state.chats) != 0:
                 st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
                 for i in range(len(st.session_state.chats)):
@@ -78,20 +80,20 @@ else:
                 st.session_state.console_output.append("\nYou have no chats to delete!")
         
         # Settings
-        elif user_input == "S" or user_input == "s":
+        elif main_input.lower() == "s":
             st.session_state.console_output.append("\nWelcome to Settings!")
             st.session_state.console_output.append("Here you can give TemuGPT certain instructions for his responses. (e.g. Be more concise, be more thorough)")
             st.session_state.console_output.append("Input your settings or press 'X' to exit.")
         
         # Quit
-        elif user_input == "Q" or user_input == "q":
+        elif main_input.lower() == "q":
             st.session_state.console_output.append("\nThank you for using TemuGPT! Goodbye!")
         
         # Regular query
         else:
             if len(st.session_state.chats) == 0:
-                st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
-                st.session_state.chats.append(user_input)
+                st.session_state.console_output.append(f"\nNew chat automatically created! — {main_input}")
+                st.session_state.chats.append(main_input)
             
             st.session_state.console_output.append("\nLoading... (Might take some time)")
             
@@ -100,7 +102,7 @@ else:
                     model_name='gemini-2.5-flash-lite',
                     system_instruction=st.session_state.system_instruction_change
                 )
-                response = model.generate_content(user_input)
+                response = model.generate_content(main_input)
                 st.session_state.console_output.append(f"\nAnswer: \n{response.text}\n")
             except Exception as e:
                 st.session_state.console_output.append(f"\nError: {str(e)}\n")
