@@ -52,6 +52,12 @@ else:
     with console_container:
         for line in st.session_state.console_output:
             st.text(line)
+
+    # Clear Console Button
+    if st.button("Clear Console"):
+        st.session_state.console_output = []
+        st.rerun()
+
     
     # Input area - ONLY SHOW AFTER DISCLAIMER
     if len(st.session_state.chats) != 0:
