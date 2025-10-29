@@ -17,6 +17,7 @@ if 'console_output' not in st.session_state:
 
 # Title
 st.title("TemuGPT")
+st.session_state.disclaimer_finish = False
 
 
 # Console output area
