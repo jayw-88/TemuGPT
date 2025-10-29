@@ -25,8 +25,8 @@ if not st.session_state.disclaimer_finish:
     st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be an assistant—don't try to break school policy in any way.")
     prompt_text = "Type 'I solemnly swear that I will abide by these rules' if you agree to these rules."
     
-    with st.form(key="input_form", clear_on_submit=True):  
-        user_input = st.text_input(prompt_text, key="user_input")    
+    with st.form(key="disclaimer_form", clear_on_submit=True):  
+        user_input = st.text_input(prompt_text, key="disclaimer_input")    
         submit_button = st.form_submit_button("Submit", type="primary")
     
     if submit_button and user_input:
@@ -53,6 +53,11 @@ else:
         prompt_text = "What would you like to do? (Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
     else:
         prompt_text = "Type here:"
+    
+    # Main input form
+    with st.form(key="main_form", clear_on_submit=True):
+        user_input = st.text_input(prompt_text, key="main_input")
+        submit_button = st.form_submit_button("Submit", type="primary")
     
     # Process input
     if submit_button and user_input:
