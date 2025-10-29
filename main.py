@@ -33,7 +33,7 @@ if not st.session_state.disclaimer_finish:
     if submit_button_dis and user_input_dis:
         if user_input_dis == "I solemnly swear that I will abide by these rules":  # Fixed variable name
             st.session_state.disclaimer_finish = True  # Fixed typo
-            st.session_state.console_output("Accepted! Starting TemuGPT...")
+            st.session_state.console_output.append("Accepted! Starting TemuGPT...")
             time.sleep(1)
             st.session_state.console_output = []
             st.session_state.console_output.append("Welcome to TemuGPT!")
