@@ -24,7 +24,9 @@ with console_container:
     if not st.session_state.console_output:
         st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be used as an assistant—don't let it do everything for you.")
         dis_text = "Type 'I hereby will abide by these rules' if you agree to these rules."
-        user_input = st.text_input(dis_text, key="user_input")  
+        with st.form(key="input_form", clear_on_submit=True):  
+            user_input = st.text_input(dis_text, key="user_input")    
+            submit_button = st.form_submit_button("Submit", type="primary")
         while True:
             if user_input == "I hereby will abide by these rules":
                 print("Accepted! Starting TemuGPT...")
