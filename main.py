@@ -1,9 +1,10 @@
 import streamlit as st
-import google.generativeai as genai
 import time
+import os
+from groq import Groq
 
 # API
-genai.configure(api_key="AIzaSyC7LgIAL1HSccNkkFNTQi0VgjFH2VWQjF8")
+client = Groq(api_key = os.environ["GROQ_API_KEY"])
 
 # page config
 st.set_page_config(page_title="TemuGPT")
@@ -100,15 +101,19 @@ else:
             if len(st.session_state.chats) == 0:
                 st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
                 st.session_state.chats.append(user_input)
+                time.sleep(.5)
 
             try:
-                model = genai.GenerativeModel(
-                    model_name='gemini-1.5-flash',  # Changed to more common model
-                    system_instruction=st.session_state.system_instruction_change
-                )
-                time.sleep(.5)
+                chat_completion = client.chat.completions.create(
+                            messages=[
+                                {"role": "system", "content": "You are a helpful assistant that is thorough and detailed and gets to the point."},
+                                {"role": "user", "content": user_input}
+                            ],
+                            model="llama-3.1-8b-instant"
+                        )
+                
                 st.session_state.console_output.append("\nLoading... (Might take some time)")
-                response = model.generate_content(user_input)
+                response = chat_completion.choices[0].message.content
                 time.sleep(.5)
                 st.session_state.console_output.append(f"\nAnswer: \n{response.text}\n")
             except Exception as e:
