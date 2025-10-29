@@ -27,7 +27,7 @@ if not st.session_state.disclaimer_finish:
         user_input_dis = st.text_input(dis_text, key="user_input_dis")    
         submit_button_dis = st.form_submit_button("Submit", type="primary")
     if submit_button_dis and user_input_dis:
-        if user_input == "I hereby will abide by these rules":
+        if user_input == "I solemnly swear that I will abide by these rules":
             st.text("Accepted! Starting TemuGPT...")
             time.sleep(1)
             st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
