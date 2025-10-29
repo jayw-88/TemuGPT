@@ -22,7 +22,7 @@ st.title("TemuGPT")
 console_container = st.container()
 with console_container:
     if not st.session_state.console_output:
-        st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be used as an assistant—don't let it do everything for you.)
+        st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be used as an assistant—don't let it do everything for you.")
         time.sleep(5)
         st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
     else:
