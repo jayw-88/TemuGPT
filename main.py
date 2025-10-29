@@ -1,6 +1,15 @@
 import streamlit as st
-import google.generativeai as genai
+import subprocess
+import sys
 import time
+
+# Install and import google-generativeai
+try:
+    import google.generativeai as genai
+except ImportError:
+    with st.spinner("Installing required packages..."):
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "google-generativeai"])
+    import google.generativeai as genai
 
 # API
 genai.configure(api_key="AIzaSyC7LgIAL1HSccNkkFNTQi0VgjFH2VWQjF8")
@@ -14,7 +23,7 @@ if 'system_instruction_change' not in st.session_state:
     st.session_state.system_instruction_change = "You are a generalized helpful assistant that helps with users' tasks."
 if 'console_output' not in st.session_state:
     st.session_state.console_output = []
-if 'disclaimer_finish' not in st.session_state:  # Fixed typo here
+if 'disclaimer_finish' not in st.session_state:
     st.session_state.disclaimer_finish = False
 
 # Title
@@ -30,9 +39,9 @@ if not st.session_state.disclaimer_finish:
         submit_button_dis = st.form_submit_button("Submit", type="primary")
     
     if submit_button_dis and user_input_dis:
-        if user_input_dis == "I solemnly swear that I will abide by these rules":  # Fixed variable name
-            st.session_state.disclaimer_finish = True  # Fixed typo
-            st.session_state.console_output = [  # Initialize console output
+        if user_input_dis == "I solemnly swear that I will abide by these rules":
+            st.session_state.disclaimer_finish = True
+            st.session_state.console_output = [
                 "Accepted! Starting TemuGPT...",
                 "Welcome to TemuGPT!", 
                 "Press 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit.", 
@@ -88,7 +97,7 @@ else:
             st.session_state.console_output.append("Here you can give TemuGPT certain instructions for his responses. (e.g. Be more concise, be more thorough)")
             st.session_state.console_output.append("Input your settings or press 'X' to exit.")
 
-        # Quit command (added missing)
+        # Quit command
         elif user_input.lower() == "q":
             time.sleep(.5)
             st.session_state.console_output.append("\nThank you for using TemuGPT! Goodbye!")
@@ -101,7 +110,7 @@ else:
 
             try:
                 model = genai.GenerativeModel(
-                    model_name='gemini-1.5-flash',  # Changed to more common model
+                    model_name='gemini-1.5-flash',
                     system_instruction=st.session_state.system_instruction_change
                 )
                 st.session_state.console_output.append("\nLoading... (Might take some time)")
