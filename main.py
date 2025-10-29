@@ -37,10 +37,12 @@ if not st.session_state.disclaimer_finish:
                 prompt_text = "What would you like to do? \n(Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
             else:
                 prompt_text = "Type here:"
+                st.rerun()
             
         else:
             st.text("Please type the statement 'I hereby will abide by these rules'")
-    st.rerun()
+            st.rerun()
+    
             
         
 
