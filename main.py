@@ -33,9 +33,8 @@ if len(st.session_state.chats) != 0:
 else:
     prompt_text = "Type here:"
     
-with st.form(key="input_form", clear_on_submit=True):
-    user_input = st.text_input(prompt_text, key="user_input")
-    submit_button = st.form_submit_button("Enter", type="primary")
+user_input = st.text_input(prompt_text, key="user_input")
+submit_button = st.form_submit_button("Submit", type="primary")
 
 if submit_button and user_input:
     if user_input:
@@ -71,14 +70,14 @@ if submit_button and user_input:
             if len(st.session_state.chats) == 0:
                 st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
                 st.session_state.chats.append(user_input)
-            time.sleep(.5)
-            st.session_state.console_output.append("\nLoading... (Might take some time)")
             
             try:
                 model = genai.GenerativeModel(
                     model_name='gemini-2.5-flash-lite',
                     system_instruction=st.session_state.system_instruction_change
                 )
+                st.session_state.console_output.append("\nLoading... (Might take some time)")
+                tim.sleep(.5)
                 response = model.generate_content(user_input)
                 st.session_state.console_output.append(f"\nAnswer: \n{response.text}\n")
             except Exception as e:
