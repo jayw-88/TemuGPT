@@ -22,14 +22,14 @@ st.title("TemuGPT")
 console_container = st.container()
 with console_container:
     if not st.session_state.console_output:
-        st.text("Welcome to TemuGPT! Press 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. How may TemuGPT help you today?")
+        st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
     else:
         for line in st.session_state.console_output:
             st.text(line)
 
 # Input area
 if len(st.session_state.chats) != 0:
-    prompt_text = "What would you like to do? (Ask, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
+    prompt_text = "What would you like to do? \n(Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
 else:
     prompt_text = "Type here:"
 with st.form(key="input_form", clear_on_submit=True):  
