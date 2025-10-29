@@ -23,7 +23,7 @@ st.title("TemuGPT")
 
 # DISCLAIMER SCREEN
 if not st.session_state.disclaimer_finish:
-    st.text("DISCLAIMER: Please do not abuse this AI in any way that is in violation of school policy.")
+    st.text("DISCLAIMER: Please do not abuse this AI in any way that is in violation of school policy. ")
     dis_text = "Type 'I solemnly swear that I will abide by these rules' if you agree to these rules."
     
     with st.form(key="input_dis", clear_on_submit=True):  
@@ -106,7 +106,6 @@ else:
             if len(st.session_state.chats) == 0:
                 st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
                 st.session_state.chats.append(user_input)
-                st.session_state.console_output.append("\nLoading... (Might take some time)")
                 time.sleep(.5)
                 chat_completion = client.chat.completions.create(
                             messages=[
