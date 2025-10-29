@@ -3,7 +3,7 @@ import google.generativeai as genai
 import time
 
 # API
-genai.configure(api_key="AIzaSyDAm1jtwFCjZhkiDtG4SmwQXwikfdDQLpE")
+genai.configure(api_key="AIzaSyC7LgIAL1HSccNkkFNTQi0VgjFH2VWQjF8")
 
 # page config
 st.set_page_config(page_title="TemuGPT")
