@@ -32,9 +32,9 @@ if len(st.session_state.chats) != 0:
     prompt_text = "What would you like to do? (Ask, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
 else:
     prompt_text = "Type here:"
-    
-user_input = st.text_input(prompt_text, key="user_input")
-submit_button = st.form_submit_button("Submit", type="primary")
+with st.form(key="input_form", clear_on_submit=True):  
+    user_input = st.text_input(prompt_text, key="user_input")    
+    submit_button = st.form_submit_button("Submit", type="primary")
 
 if submit_button and user_input:
     if user_input:
