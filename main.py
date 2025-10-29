@@ -35,47 +35,50 @@ else:
 
 user_input = st.text_input(prompt_text, key="user_input")
 
-#if st.button("Enter", type="primary"):
-if user_input:
-    st.session_state.console_output.append(f"\n> {user_input}")
-    
-    # New Chat
-    if user_input == "N" or user_input == "n":
-        st.session_state.console_output.append("\nWhat would you like to name this chat?")
+with st.form(key="input_form", clear_on_submit=True):
+    submit_button = st.form_submit_button("Enter", type="primary")
+
+if submit_button and user_input:
+    if user_input:
+        st.session_state.console_output.append(f"\n> {user_input}")
         
-    # Delete Chat
-    elif user_input == "X" or user_input == "x":
-        if len(st.session_state.chats) != 0:
-            st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
-            for i in range(len(st.session_state.chats)):
-                st.session_state.console_output.append(str(i) + ". " + st.session_state.chats[i])
-            st.session_state.console_output.append("\nInput the number of the chat.")
+        # New Chat
+        if user_input == "N" or user_input == "n":
+            st.session_state.console_output.append("\nWhat would you like to name this chat?")
+            
+        # Delete Chat
+        elif user_input == "X" or user_input == "x":
+            if len(st.session_state.chats) != 0:
+                st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
+                for i in range(len(st.session_state.chats)):
+                    st.session_state.console_output.append(str(i) + ". " + st.session_state.chats[i])
+                st.session_state.console_output.append("\nInput the number of the chat.")
+            else:
+                st.session_state.console_output.append("\nYou have no chats to delete!")
+        
+        # Settings
+        elif user_input == "S" or user_input == "s":
+            st.session_state.console_output.append("\nWelcome to Settings!")
+            st.session_state.console_output.append("Here you can give TemuGPT certain instructions for his responses. (e.g. Be more concise, be more thorough)")
+            st.session_state.console_output.append("Input your settings or press 'X' to exit.")
+        
+        # Regular query
         else:
-            st.session_state.console_output.append("\nYou have no chats to delete!")
-    
-    # Settings
-    elif user_input == "S" or user_input == "s":
-        st.session_state.console_output.append("\nWelcome to Settings!")
-        st.session_state.console_output.append("Here you can give TemuGPT certain instructions for his responses. (e.g. Be more concise, be more thorough)")
-        st.session_state.console_output.append("Input your settings or press 'X' to exit.")
-    
-    # Regular query
-    else:
-        if len(st.session_state.chats) == 0:
-            st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
-            st.session_state.chats.append(user_input)
-        time.sleep(.5)
-        st.session_state.console_output.append("\nLoading... (Might take some time)")
+            if len(st.session_state.chats) == 0:
+                st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
+                st.session_state.chats.append(user_input)
+            time.sleep(.5)
+            st.session_state.console_output.append("\nLoading... (Might take some time)")
+            
+            try:
+                model = genai.GenerativeModel(
+                    model_name='gemini-2.5-flash-lite',
+                    system_instruction=st.session_state.system_instruction_change
+                )
+                response = model.generate_content(user_input)
+                st.session_state.console_output.append(f"\nAnswer: \n{response.text}\n")
+            except Exception as e:
+                st.session_state.console_output.append(f"\nError: {str(e)}\n")
         
-        try:
-            model = genai.GenerativeModel(
-                model_name='gemini-2.5-flash-lite',
-                system_instruction=st.session_state.system_instruction_change
-            )
-            response = model.generate_content(user_input)
-            st.session_state.console_output.append(f"\nAnswer: \n{response.text}\n")
-        except Exception as e:
-            st.session_state.console_output.append(f"\nError: {str(e)}\n")
-    
     st.rerun()
 
