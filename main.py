@@ -27,7 +27,9 @@ if not st.session_state.disclaimer_finish:
         user_input_dis = st.text_input(dis_text, key="user_input_dis")    
         submit_button_dis = st.form_submit_button("Submit", type="primary")
     if submit_button_dis and user_input_dis:
+        
         if user_input_dis == "I solemnly swear that I will abide by these rules":
+            st.session_state.discalimer_finish = True
             st.text("Accepted! Starting TemuGPT...")
             time.sleep(1)
             st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
@@ -36,11 +38,12 @@ if not st.session_state.disclaimer_finish:
                 prompt_text = "What would you like to do? \n(Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
             else:
                 prompt_text = "Type here:"
+            
             with st.form(key="input_form", clear_on_submit=True):  
                 print("worked!")
                 user_input = st.text_input(prompt_text, key="user_input")    
                 submit_button = st.form_submit_button("Submit", type="primary")
-            st.session_state.discalimer_finish = True
+            
         else:
             st.text("Please type the statement 'I hereby will abide by these rules'")
         
