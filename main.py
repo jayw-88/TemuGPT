@@ -33,28 +33,21 @@ if not st.session_state.disclaimer_finish:
             time.sleep(1)
             st.text("Welcome to TemuGPT! \nPress 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit. \n\nHow may TemuGPT help you today?")
             time.sleep(.5)
-            if len(st.session_state.chats) != 0:
-                prompt_text = "What would you like to do? \n(Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
-            else:
-                prompt_text = "Type here:"
-                st.rerun()
-            
         else:
             st.text("Please type the statement 'I hereby will abide by these rules'")
             st.rerun()
-    
-            
-        
-
 else:
     console_container = st.container()
     with console_container:
         for line in st.session_state.console_output:
             st.text(line)
+if len(st.session_state.chats) != 0:
+    prompt_text = "What would you like to do? \n(Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
+else:
+    prompt_text = "Type here:"
+    st.rerun()
 
-            
 with st.form(key="input_form", clear_on_submit=True):  
-    print("worked!")
     user_input = st.text_input(prompt_text, key="user_input")    
     submit_button = st.form_submit_button("Submit", type="primary")
 
