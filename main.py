@@ -14,8 +14,6 @@ if 'system_instruction_change' not in st.session_state:
     st.session_state.system_instruction_change = "You are a generalized helpful assistant that helps with users' tasks."
 if 'console_output' not in st.session_state:
     st.session_state.console_output = []
-if 'disclaimer_finish' not in st.session_state:
-    st.session_state.disclaimer_finish = False
 
 # Title
 st.title("TemuGPT")
