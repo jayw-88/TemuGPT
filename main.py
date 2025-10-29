@@ -36,7 +36,7 @@ with console_container:
             else:
                 type_again_text = ("Please type the statement 'I hereby will abide by these rules'")
                 with st.form(key="input_dis_retry", clear_on_submit=True):  
-                    user_input = st.text_input(dis_text, key="user_input_dis_retry")    
+                    user_input = st.text_input(dis_text, key="user_input_dis")    
                     submit_button = st.form_submit_button("Submit", type="primary") 
                 next
 
