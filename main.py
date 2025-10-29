@@ -77,5 +77,5 @@ if user_input:
         except Exception as e:
             st.session_state.console_output.append(f"\nError: {str(e)}\n")
     
-    st.rerun()
+    #st.rerun()
 
