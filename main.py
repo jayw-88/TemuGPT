@@ -37,7 +37,7 @@ if not st.session_state.disclaimer_finish:
             else:
                 prompt_text = "Type here:"
             with st.form(key="input_form", clear_on_submit=True):  
-                print("worked!)
+                print("worked!")
                 user_input = st.text_input(prompt_text, key="user_input")    
                 submit_button = st.form_submit_button("Submit", type="primary")
             st.session_state.discalimer_finish = True
