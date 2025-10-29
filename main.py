@@ -23,7 +23,7 @@ st.title("TemuGPT")
 
 # DISCLAIMER SCREEN
 if not st.session_state.disclaimer_finish:
-    st.text("DISCLAIMER: Please do not abuse this AI in any way. It is supposed to be an assistant—don't try to break school policy in any way.")
+    st.text("DISCLAIMER: Please do not abuse this AI in any way that is in violation of school policy.")
     dis_text = "Type 'I solemnly swear that I will abide by these rules' if you agree to these rules."
     
     with st.form(key="input_dis", clear_on_submit=True):  
