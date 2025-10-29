@@ -113,13 +113,13 @@ else:
                 
                 st.session_state.console_output.append("\nLoading... (Might take some time)")
                 time.sleep(.5)
-                try:
-                    chat_completion = client.chat.completions.create(
-                                messages=[
-                                    {"role": "user", "content": user_input}
-                                ],
-                                model="llama-3.1-8b-instant"
-                            )
+            try:
+                chat_completion = client.chat.completions.create(
+                            messages=[
+                                {"role": "user", "content": user_input}
+                            ],
+                            model="llama-3.1-8b-instant"
+                        )
                 response = chat_completion.choices[0].message.content
                 st.session_state.console_output.append(f"\nAnswer: \n{response}\n")
             except Exception as e:
