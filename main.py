@@ -37,7 +37,7 @@ if not st.session_state.disclaimer_finish:
             time.sleep(.5)
             st.session_state.console_output = []
             st.session_state.console_output.append("Welcome to TemuGPT!")
-            st.session_state.console_output.append("Press 'N' to start a new chat, 'X' to delete a chat, 'S' for settings, and 'Q' to quit.")
+            st.session_state.console_output.append("Press 'M' to manage chats, 'S' for settings, and 'Q' to quit.")
             time.sleep(.5)
             st.session_state.console_output.append("\nHow may TemuGPT help you today?")
             st.rerun()
@@ -60,7 +60,7 @@ else:
     
     # Input area - ONLY SHOW AFTER DISCLAIMER
     if len(st.session_state.chats) != 0:
-        prompt_text = "What would you like to do? \n(Ask Something, New Chat (N), Delete Chat (X), Settings (S), Quit (Q))"
+        prompt_text = "What would you like to do? \n(Ask Something, Manage Chats (M), Settings (S), Quit (Q))"
     else:
         prompt_text = "Type here:"
     
@@ -72,22 +72,25 @@ else:
         st.session_state.console_output.append(f"\n> {user_input}")
 
         # New Chat
-        if user_input.lower() == "n":
+        if user_input.lower() == "m":
             time.sleep(.5)
-            st.session_state.console_output.append("\nWhat would you like to name this chat?")
+            st.session_state.console_output.append("\n Welcome to Chat Management. What would you like to do? See Chats (S), Create a New Chat (N), or Delete a Chat (X)")
 
-        # Delete Chat
-        elif user_input.lower() == "x":
-            time.sleep(.5)
-            if len(st.session_state.chats) != 0:
-                st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
-                for i in range(len(st.session_state.chats)):
-                    st.session_state.console_output.append(str(i) + ". " + st.session_state.chats[i])
+            # Delete Chat
+            if user_input.lower() == "x":
                 time.sleep(.5)
-                st.session_state.console_output.append("\nInput the number of the chat.")
-            else:
+                if len(st.session_state.chats) != 0:
+                    st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
+                    for i in range(len(st.session_state.chats)):
+                        st.session_state.console_output.append(str(i) + ". " + st.session_state.chats[i])
+                    time.sleep(.5)
+                    st.session_state.console_output.append("\nInput the number of the chat.")
+                else:
+                    time.sleep(.5)
+                    st.session_state.console_output.append("\nYou have no chats to delete!")
+            elif user_input.lower() == "n":
                 time.sleep(.5)
-                st.session_state.console_output.append("\nYou have no chats to delete!")
+                st.session_state.console_output.append("\nWhat is the name of your chat?\n")
 
         # Settings
         elif user_input.lower() == "s":
