@@ -15,7 +15,7 @@ if 'system_instruction_change' not in st.session_state:
     st.session_state.system_instruction_change = "You are a generalized helpful assistant that helps with users' tasks."
 if 'console_output' not in st.session_state:
     st.session_state.console_output = []
-if 'disclaimer_finish' not in st.session_state:  # Fixed typo here
+if 'disclaimer_finish' not in st.session_state:
     st.session_state.disclaimer_finish = False
 
 # Title
@@ -31,8 +31,8 @@ if not st.session_state.disclaimer_finish:
         submit_button_dis = st.form_submit_button("Submit", type="primary")
     
     if submit_button_dis and user_input_dis:
-        if user_input_dis == "I solemnly swear that I will abide by these rules":  # Fixed variable name
-            st.session_state.disclaimer_finish = True  # Fixed typo
+        if user_input_dis == "I solemnly swear that I will abide by these rules":
+            st.session_state.disclaimer_finish = True
             st.session_state.console_output.append("Accepted! Starting TemuGPT...")
             time.sleep(.5)
             st.session_state.console_output = []
@@ -44,7 +44,7 @@ if not st.session_state.disclaimer_finish:
         else:
             st.error("Please type the exact statement: 'I solemnly swear that I will abide by these rules'")
 
-# MAIN SCREEN (only shows after disclaimer accepted)
+# MAIN SCREEN
 else:
     # Console output
     console_container = st.container()
