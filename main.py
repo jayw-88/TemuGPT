@@ -77,20 +77,24 @@ else:
             st.session_state.console_output.append("\n Welcome to Chat Management. What would you like to do? See Chats (S), Create a New Chat (N), or Delete a Chat (X)")
 
             # Delete Chat
-            if user_input.lower() == "x":
+            if user_input.lower() == "s":
                 time.sleep(.5)
+                st.session_state.console_output.append(str(st.session_state.chats))
+            elif user_input.lower() = "n":
+                time.sleep(.5)
+                st.session_state.console_output.append("\nInput the name of your chat?\n")
+                st.session_state.chats.append(user_input)
+            elif user_input.lower() == "x":
                 if len(st.session_state.chats) != 0:
                     st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
-                    for i in range(len(st.session_state.chats)):
-                        st.session_state.console_output.append(str(i) + ". " + st.session_state.chats[i])
+                    st.session_state.console_output.append(str(st.session_state.chats))
                     time.sleep(.5)
                     st.session_state.console_output.append("\nInput the number of the chat.")
+                    st.session_state.chats.remove(user_input)
                 else:
                     time.sleep(.5)
                     st.session_state.console_output.append("\nYou have no chats to delete!")
-            elif user_input.lower() == "n":
-                time.sleep(.5)
-                st.session_state.console_output.append("\nWhat is the name of your chat?\n")
+               
 
         # Settings
         elif user_input.lower() == "s":
