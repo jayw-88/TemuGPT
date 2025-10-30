@@ -80,7 +80,7 @@ else:
             if user_input.lower() == "s":
                 time.sleep(.5)
                 st.session_state.console_output.append(str(st.session_state.chats))
-            elif user_input.lower() = "n":
+            elif user_input.lower() == "n":
                 time.sleep(.5)
                 st.session_state.console_output.append("\nInput the name of your chat?\n")
                 st.session_state.chats.append(user_input)
@@ -102,14 +102,14 @@ else:
             st.session_state.console_output.append("\nWelcome to Settings!")
             st.session_state.console_output.append("Here you can give TemuGPT certain instructions for his responses.\n Press 1 for a faster model and 2 for a more thorough model.")
             st.session_state.console_output.append("Input your settings or press 'X' to exit.")
-        if st.button("1"):
-            st.session_sate.ai_model = "llama-3.1-8b-instant"
-            st.session_state.console_output.append("Your settings have been changed.")
-            st.rerun()
-        if st.button("2"):
-            st.session_sate.ai_model = "llama-3.3-70b-versatile"
-            st.session_state.console_output.append("Your settings have been changed.")
-            st.rerun()
+            if st.button("1"):
+                st.session_sate.ai_model = "llama-3.1-8b-instant"
+                st.session_state.console_output.append("Your settings have been changed.")
+                st.rerun()
+            if st.button("2"):
+                st.session_sate.ai_model = "llama-3.3-70b-versatile"
+                st.session_state.console_output.append("Your settings have been changed.")
+                st.rerun()
 
         # Quit command (added missing)
         elif user_input.lower() == "q":
