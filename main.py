@@ -79,7 +79,10 @@ else:
             # Delete Chat
             if user_input.lower() == "v":
                 time.sleep(.5)
-                st.session_state.console_output.append(str(st.session_state.chats))
+                if len(st.session_state.chats) == 0:
+                    st.session_state.console_output.append("You have no chats to view!")
+                else:
+                    st.session_state.console_output.append(str(st.session_state.chats))
             elif user_input.lower() == "n":
                 time.sleep(.5)
                 st.session_state.console_output.append("\nInput the name of your chat?\n")
