@@ -74,10 +74,10 @@ else:
         # New Chat
         if user_input.lower() == "m":
             time.sleep(.5)
-            st.session_state.console_output.append("\n Welcome to Chat Management. What would you like to do? See Chats (S), Create a New Chat (N), or Delete a Chat (X)")
+            st.session_state.console_output.append("\n Welcome to Chat Management. What would you like to do? View Chats (V), Create a New Chat (N), or Delete a Chat (X)")
 
             # Delete Chat
-            if user_input.lower() == "s":
+            if user_input.lower() == "v":
                 time.sleep(.5)
                 st.session_state.console_output.append(str(st.session_state.chats))
             elif user_input.lower() == "n":
