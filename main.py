@@ -69,7 +69,7 @@ else:
         submit_button = st.form_submit_button("Submit", type="primary")
 
     if submit_button and user_input:
-        st.session_state.console_output.append(f"\n> {user_input}")
+        st.session_state.console_output.append(f"\n                                                           {user_input}")
 
         # New Chat
         if user_input.lower() == "m":
