@@ -77,17 +77,20 @@ else:
             st.session_state.console_output.append("\n Welcome to Chat Management. What would you like to do? View Chats (V), Create a New Chat (N), or Delete a Chat (X)")
 
             # Delete Chat
-            if user_input.lower() == "v":
+            with st.form(key="chat_form", clear_on_submit=True):  
+                user_chat = st.text_input(chat_text, key="user_chat")    
+                submit_button = st.form_submit_button("Submit", type="primary")
+            if user_chat.lower() == "v":
                 time.sleep(.5)
                 if len(st.session_state.chats) == 0:
                     st.session_state.console_output.append("You have no chats to view!")
                 else:
                     st.session_state.console_output.append(str(st.session_state.chats))
-            elif user_input.lower() == "n":
+            elif user_chat.lower() == "n":
                 time.sleep(.5)
                 st.session_state.console_output.append("\nInput the name of your chat?\n")
                 st.session_state.chats.append(user_input)
-            elif user_input.lower() == "x":
+            elif user_chat.lower() == "x":
                 if len(st.session_state.chats) != 0:
                     st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
                     st.session_state.console_output.append(str(st.session_state.chats))
