@@ -1,6 +1,6 @@
 # TemuGPT
 A small project I made that uses Streamlit to run an "AI".
-This "AI" uses the Gemini API, and this project was made just for me to experiment with API's and Streamlit.
+This "AI" uses the Groq AI API, and this project was made just for me to experiment with API's and Streamlit.
 
 ### How to Run Application
 Use this link: https://t3mu-gp7.streamlit.app/
