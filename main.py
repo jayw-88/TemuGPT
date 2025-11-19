@@ -87,11 +87,12 @@ else:
                     st.session_state.console_output.append("You have no chats to view!")
                 else:
                     st.session_state.console_output.append(str(st.session_state.chats))
-                break
+                st.rerun()
             elif user_chat.lower() == "n":
                 time.sleep(.5)
                 st.session_state.console_output.append("\nInput the name of your chat?\n")
                 st.session_state.chats.append(user_input)
+                st.rerun()
             elif user_chat.lower() == "x":
                 if len(st.session_state.chats) != 0:
                     st.session_state.console_output.append("\nWhich chat would you like to delete?\n")
@@ -102,6 +103,7 @@ else:
                 else:
                     time.sleep(.5)
                     st.session_state.console_output.append("\nYou have no chats to delete!")
+                st.rerun()
                
 
         # Settings
