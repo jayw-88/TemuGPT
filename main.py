@@ -77,6 +77,7 @@ else:
             st.session_state.console_output.append("\n Welcome to Chat Management. What would you like to do? View Chats (V), Create a New Chat (N), or Delete a Chat (X)")
 
             # Delete Chat
+            chat_text = ""
             with st.form(key="chat_form", clear_on_submit=True):  
                 user_chat = st.text_input(chat_text, key="user_chat")    
                 submit_button = st.form_submit_button("Submit", type="primary")
