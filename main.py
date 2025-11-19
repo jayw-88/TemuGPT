@@ -87,6 +87,7 @@ else:
                     st.session_state.console_output.append("You have no chats to view!")
                 else:
                     st.session_state.console_output.append(str(st.session_state.chats))
+                break
             elif user_chat.lower() == "n":
                 time.sleep(.5)
                 st.session_state.console_output.append("\nInput the name of your chat?\n")
