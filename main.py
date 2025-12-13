@@ -132,7 +132,7 @@ else:
                 st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
                 st.session_state.chats.append(user_input)
                 time.sleep(.5)
-                st.session_state.console_output.append(Loading...)
+                st.session_state.console_output.append("Loading...")
                 chat_completion = client.chat.completions.create(
                             messages=[
                                 {"role": "user", "content": user_input}
