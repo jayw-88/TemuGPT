@@ -124,7 +124,7 @@ else:
         # Quit command (added missing)
         elif user_input.lower() == "q":
             time.sleep(.5)
-            st.session_state.console_output.append("\nThank you for using TemuGPT! Goodbye!")
+            st.session_state.console_output.append("\nThank you for using TemuGPT!")
 
         # Regular query
         else:
@@ -143,4 +143,4 @@ else:
                 st.session_state.console_output.pop()
                 st.session_state.console_output.append(f"\nAnswer: \n{response}\n")
 
-        st.rerun()
+    st.rerun()
