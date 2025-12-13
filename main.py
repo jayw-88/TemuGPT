@@ -132,6 +132,7 @@ else:
                 st.session_state.console_output.append(f"\nNew chat automatically created! — {user_input}")
                 st.session_state.chats.append(user_input)
                 time.sleep(.5)
+                st.session_state.console_output.append(Loading...)
                 chat_completion = client.chat.completions.create(
                             messages=[
                                 {"role": "user", "content": user_input}
@@ -139,6 +140,7 @@ else:
                             model="llama-3.1-8b-instant"
                         )
                 response = chat_completion.choices[0].message.content
+                st.session_state.console_output.pop()
                 st.session_state.console_output.append(f"\nAnswer: \n{response}\n")
 
         st.rerun()
