@@ -1,6 +1,5 @@
 # TemuGPT
-A small project I made that uses Streamlit to run an "AI".
-This "AI" uses the Groq AI API, and this project was made to experiment with API's and Streamlit.
+A small project I made hosted on Streamlit to run an AI using Groq API.
 
 ## How to Run Application
 Use this link: [https://temu-gpt.streamlit.app/](https://temu-gpt.streamlit.app/)
