@@ -1,4 +1,4 @@
-# BotzGPT
+# schbot
 A small project I made hosted on Streamlit to run an AI using Groq API.
 
 ## How to Run Application
